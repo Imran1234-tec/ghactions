@@ -1,0 +1,29 @@
+name: workflow runners
+
+on: push
+
+jobs: 
+  ubuntu-os:
+    runs-on: ubuntu-latest
+    steps:
+      - name: get linux information
+        run: |
+          echo "print os information"
+          echo "detected os: $RUNNER_OS"
+
+  windows-os:
+     runs-on: windows-latest
+     steps:
+      - name: get windows information
+        shell: bash
+        run: |
+          echo "print os information"
+          echo "detected os: $RUNNER_OS"
+  mac-os:
+     runs-on: macos-latest
+     steps:
+      - name: get macos information
+        run: |
+          echo "print os information"
+          echo "detected os: $RUNNER_OS"
+    
