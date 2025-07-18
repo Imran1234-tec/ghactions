@@ -1,0 +1,12 @@
+name: contexts demo pipeline creation to check the workflow
+
+on: 
+    push:
+     branches: [ main ] 
+
+jobs: 
+    Build_contexts_job:
+        runs-on: ubuntu-latest
+        steps:
+            - name: build using contexts
+              run: echo "Repo: ${{ github.repository }}, Branch: ${{ github.ref }}"

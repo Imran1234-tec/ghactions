@@ -1,0 +1,55 @@
+name: cicd pipeline workflow for github actions
+
+on: 
+    push:
+        branches: [ main ]
+    pull_request: 
+        branches: [ main ]
+
+jobs:
+    build_job:
+        runs-on: ubuntu-latest
+        steps:
+            - name: build job
+              uses: actions/checkout@v4
+
+
+    test_job:
+        runs-on: ubuntu-latest
+        steps:
+            - name: env setup
+              uses: actions/setup-java@v4
+              with:
+                java-version: '17'
+                distribution: 'mularin'
+
+    deploy_job:
+        runs-on: ubuntu-latest
+        steps:
+            - name: deploy the artifact
+              run: mvn deploy
+
+            - name: upload artifact
+              uses: actions/upload-artifact@v4
+              with:
+                name: build
+                path: dist/
+
+            - name: Notify on test failure
+              if: failure()
+              run: |
+                echo "Tests failed. Sending failure notification..."
+
+
+            - name: notify if successed
+              if: success()
+              run: echo"this pipeline is success"..
+
+            - name: notify if pipeline failure 
+              if: always()
+              run: echo "cleanup"
+
+    
+              
+    
+
